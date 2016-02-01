@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<meta http-equiv="refresh" content="5" >
+	</head>
+	<body>
+	<style>
+	th {
+	    background-color: #4CAF50;
+	    color: white;
+	}
+	</style>
+	<div align="center" style="background-color: #4CAF50; top: 0px; left: 0px; x-index: -1; color: #fff; font-size: 2.5em;"><b>Lobos boogie 2016</b></div>
+	<table width="100%">
+		{% set flightCount = flightNum - 1 %}
+		<tr>
+		{% for flightNumber, skydivers in flights.iteritems()|sort() %}
+			{% if loop.index0 != 0 %}
+				<th align="center" width="25%" style="font-size: 2.5em;">
+			{% else %}
+				<th align="center" width="25%" style="font-size: 2.5em;background-color: #ccc">
+			{% endif %}
+				{% if 'combustible' in flightNumber|string() %}
+					Combustible
+				{% else %}
+					{% set flightCount = flightCount + 1 %}
+					{{ flightCount }}
+				{% endif %}
+			</th>
+		{% endfor %}
+		</tr>
+		<tr>
+		{% for flightNumber, skydivers in flights.iteritems()|sort() %}
+			<td width="25%"i valign="top">
+				{% if 'combustible' in flightNumber|string() %}
+					<table>
+					<tr>
+						<td align="center"><img src="/static/combustible.jpg" /></td>
+					</tr>
+					</table>
+				{% else %}
+					<table>
+					{% for skydiver in skydivers %}
+						{% if skydiver|length > 3 %}
+						<tr>
+							<td style="font-size: 2em;">{{ loop.index0 + 1}} {{ skydiver }}</td>
+						</tr>
+						{% endif %}
+					{% endfor %}
+					</table>
+				{% endif %}
+			</td>
+		{% endfor %}
+		</tr>
+	</table>
+	</body>
+</html>
