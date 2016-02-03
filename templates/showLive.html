@@ -1,23 +1,25 @@
 <html>
 	<head>
 		<meta http-equiv="refresh" content="5" >
+		{{ moment.include_jquery() }}
+	        {{ moment.include_moment() }}
 	</head>
 	<body>
 	<style>
 	th {
-	    background-color: #4CAF50;
+	    background-color:  #73A2EF;
 	    color: white;
 	}
 	</style>
-	<div align="center" style="background-color: #4CAF50; top: 0px; left: 0px; x-index: -1; color: #fff; font-size: 2.5em;"><b>Lobos boogie 2016</b></div>
+	<div align="center" style="background-color: #73A2EF; top: 0px; left: 0px; x-index: -1; color: #fff; font-size: 2.5em;"><b>Lobos boogie 2016</b> ({{ moment().format('hh:mm') }}hs)</div>
 	<table width="100%">
 		{% set flightCount = flightNum - 1 %}
 		<tr>
 		{% for flightNumber, skydivers in flights.iteritems()|sort() %}
 			{% if loop.index0 != 0 %}
-				<th align="center" width="25%" style="font-size: 2.5em;">
+				<th align="center" width="25%" style="font-size: 2.5em">
 			{% else %}
-				<th align="center" width="25%" style="font-size: 2.5em;background-color: #ccc">
+				<th align="center" width="25%" style="font-size: 2.5em;background-color: #5ACB5A">
 			{% endif %}
 				{% if 'combustible' in flightNumber|string() %}
 					Combustible
@@ -42,7 +44,7 @@
 					{% for skydiver in skydivers %}
 						{% if skydiver|length > 3 %}
 						<tr>
-							<td style="font-size: 2em;">{{ loop.index0 + 1}} {{ skydiver }}</td>
+							<td style="font-size: 2em;"><font color="#FF7563" style="font-size: 0.5em;">{{ loop.index0 + 1}}</font><img width="40" height="40" src="/static/skydiver/{{skydiver|lower}}.jpg" /> {{ skydiver }}</td>
 						</tr>
 						{% endif %}
 					{% endfor %}

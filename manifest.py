@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
 from flask import Flask, render_template
+from flask.ext.moment import Moment
 from os import listdir
 from os.path import isfile, join
 import re
 
 app = Flask(__name__)
+moment = Moment(app)
 app.debug = True
 
 @app.route("/")
