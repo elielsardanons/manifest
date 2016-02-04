@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<meta http-equiv="refresh" content="5" >
+		<meta http-equiv="refresh" content="15" >
 		{{ moment.include_jquery() }}
 	        {{ moment.include_moment() }}
 	</head>
@@ -11,8 +11,10 @@
 	    color: white;
 	}
 	</style>
-	<div align="center" style="background-color: #73A2EF; top: 0px; left: 0px; x-index: -1; color: #fff; font-size: 2.5em;"><b>Lobos boogie 2016</b> ({{ moment().format('hh:mm') }}hs)</div>
-	<table width="100%">
+	<br />
+	<div align="center" style="background-color: #73A2EF; bottom: 0px; left: 0px; x-index: -1; color: #fff; font-size: 2.5em;"><b>Lobos boogie 2016</b> ({{ moment().format('hh:mm') }}hs)</div>
+	<center>
+	<table width="96%">
 		{% set flightCount = flightNum - 1 %}
 		<tr>
 		{% for flightNumber, skydivers in flights.iteritems()|sort() %}
@@ -44,7 +46,13 @@
 					{% for skydiver in skydivers %}
 						{% if skydiver|length > 3 %}
 						<tr>
-							<td style="font-size: 1.7em;"><font color="#FF7563" style="font-size: 0.5em;">{{ loop.index0 + 1}}</font><img width="40" height="40" src="/static/skydiver/{{skydiver|lower}}.jpg" /> {{ skydiver }}</td>
+							<td style="font-size: 1.4em;"><font color="#FF7563" style="font-size: 0.5em;">{{ loop.index0 + 1}}</font>
+							{% if skydiverImage[skydiver] %}
+								<img width="30" height="30" src="/static/skydiver/{{skydiver|lower}}.jpg" /> {{ skydiver }}
+							{% else %}
+								<img width="30" height="30" src="/static/skydiver/unknown.png" /> {{ skydiver }}
+							{% endif %}
+							</td>
 						</tr>
 						{% endif %}
 					{% endfor %}
@@ -54,5 +62,6 @@
 		{% endfor %}
 		</tr>
 	</table>
+	</center>
 	</body>
 </html>

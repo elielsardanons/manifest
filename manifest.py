@@ -18,6 +18,7 @@ def live():
 	flying = file('flying').read()
 
 	lastflights = {}
+	skydiverImage = {}
 
 	showCount = 0
 	for flight in sorted(flights):
@@ -28,10 +29,15 @@ def live():
 		with file(join(mypath, flight)) as f:
 			s = f.readlines()
 			lastflights[flight] = s
+			for skydiver in s:
+				if isfile('/home/eliel/manifest/static/skydiver/' + skydiver.replace(" ", "%20").lower().rstrip() + '.jpg'):
+					skydiverImage[skydiver] = skydiver
+				else:
+					skydiverImage[skydiver] = None
 		if showCount == 4:
 			break
 
-	return render_template("showLive.html", flights = lastflights, flightNum = int(flying))
+	return render_template("showLive.html", flights = lastflights, flightNum = int(flying), skydiverImage = skydiverImage)
 
 if __name__ == "__main__":
 	app.run()
