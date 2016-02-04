@@ -24,14 +24,13 @@ def live():
 	for flight in sorted(flights):
 		if int(re.search(r'\d+', flight).group()) < int(flying):
 			continue
-		print flight
 		showCount = showCount + 1
 		with file(join(mypath, flight)) as f:
 			s = f.readlines()
 			lastflights[flight] = s
 			for skydiver in s:
-				if isfile('/home/eliel/manifest/static/skydiver/' + skydiver.replace(" ", "%20").lower().rstrip() + '.jpg'):
-					skydiverImage[skydiver] = skydiver
+				if isfile('/home/eliel/manifest/static/skydiver/' + skydiver.replace(" ", "").lower().rstrip() + '.jpg'):
+					skydiverImage[skydiver] = skydiver.replace(" ", "").lower().rstrip() + '.jpg'
 				else:
 					skydiverImage[skydiver] = None
 		if showCount == 4:

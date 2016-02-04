@@ -4,9 +4,10 @@
 		{{ moment.include_jquery() }}
 	        {{ moment.include_moment() }}
 	</head>
-	<body>
+	<body bgcolor="#f1f1f1">
 	<style>
 	th {
+	    border-radius:7px 7px 7px 7px;
 	    background-color:  #73A2EF;
 	    color: white;
 	}
@@ -34,13 +35,15 @@
 		</tr>
 		<tr>
 		{% for flightNumber, skydivers in flights.iteritems()|sort() %}
-			<td width="25%"i valign="top">
+			<td width="25%" valign="top">
 				{% if 'combustible' in flightNumber|string() %}
+					<center>
 					<table>
 					<tr>
-						<td align="center"><img src="/static/combustible.jpg" /></td>
+						<td align="center"><img width="180" height="180" src="/static/fuel.png" /></td>
 					</tr>
 					</table>
+					</center>
 				{% else %}
 					<table>
 					{% for skydiver in skydivers %}
@@ -48,7 +51,7 @@
 						<tr>
 							<td style="font-size: 1.4em;"><font color="#FF7563" style="font-size: 0.5em;">{{ loop.index0 + 1}}</font>
 							{% if skydiverImage[skydiver] %}
-								<img width="30" height="30" src="/static/skydiver/{{skydiver|lower}}.jpg" /> {{ skydiver }}
+								<img width="30" height="30" src="/static/skydiver/{{skydiverImage[skydiver]}}" /> {{ skydiver }}
 							{% else %}
 								<img width="30" height="30" src="/static/skydiver/unknown.png" /> {{ skydiver }}
 							{% endif %}
