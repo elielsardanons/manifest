@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<meta http-equiv="refresh" content="15" >
+		<meta http-equiv="refresh" content="5" >
 		{{ moment.include_jquery() }}
 	        {{ moment.include_moment() }}
 	</head>
@@ -13,30 +13,28 @@
 	}
 	</style>
 	<br />
-	<div align="center" style="background-color: #73A2EF; bottom: 0px; left: 0px; x-index: -1; color: #fff; font-size: 2.5em;"><b>Lobos boogie 2016</b> ({{ moment().format('hh:mm') }}hs)</div>
+	<div align="center" style="background-color: #73A2EF; bottom: 0px; left: 0px; x-index: -1; color: #fff; font-size: 2.5em;"><b>Lobos boogie 2016</b> ({{ moment().format('H:mm') }}hs)</div>
 	<center>
 	<table width="96%">
-		{% set flightCount = flightNum - 1 %}
 		<tr>
-		{% for flightNumber, skydivers in flights.iteritems()|sort() %}
+		{% for flightNumber, skydivers in showFlights.iteritems() %}
 			{% if loop.index0 != 0 %}
-				<th align="center" width="25%" style="font-size: 2.5em">
+			<th align="center" width="25%" style="font-size: 2.5em">
 			{% else %}
-				<th align="center" width="25%" style="font-size: 2.5em;background-color: #5ACB5A">
+			<th align="center" width="25%" style="font-size: 2.5em;background-color: #5ACB5A">
 			{% endif %}
-				{% if 'combustible' in flightNumber|string() %}
-					Combustible
-				{% else %}
-					{% set flightCount = flightCount + 1 %}
-					{{ flightCount }}
-				{% endif %}
+			{% if 'combustible' in skydivers[0]|string()|lower() %}
+				Combustible
+			{% else %}
+				{{ skydivers[0]|int() }}
+			{% endif %}
 			</th>
 		{% endfor %}
 		</tr>
 		<tr>
-		{% for flightNumber, skydivers in flights.iteritems()|sort() %}
+		{% for flightNumber, skydivers in showFlights.iteritems() %}
 			<td width="25%" valign="top">
-				{% if 'combustible' in flightNumber|string() %}
+				{% if 'combustible' in skydivers[0]|string()|lower() %}
 					<center>
 					<table>
 					<tr>
@@ -47,16 +45,18 @@
 				{% else %}
 					<table>
 					{% for skydiver in skydivers %}
-						{% if skydiver|length > 3 %}
-						<tr>
-							<td style="font-size: 1.4em;"><font color="#FF7563" style="font-size: 0.5em;">{{ loop.index0 + 1}}</font>
-							{% if skydiverImage[skydiver] %}
-								<img width="30" height="30" src="/static/skydiver/{{skydiverImage[skydiver]}}" /> {{ skydiver }}
-							{% else %}
-								<img width="30" height="30" src="/static/skydiver/unknown.png" /> {{ skydiver }}
+						{% if loop.index0 != 0 %}
+							{% if skydiver|length > 3 %}
+							<tr>
+								<td style="font-size: 1.4em;"><font color="#FF7563" style="font-size: 0.5em;">{{ loop.index0 }}</font>
+								{% if skydiverImage[skydiver] %}
+									<img width="30" height="30" src="/static/skydiver/{{skydiverImage[skydiver]}}" /> {{ skydiver }}
+								{% else %}
+									<img width="30" height="30" src="/static/skydiver/unknown.png" /> {{ skydiver }}
+								{% endif %}
+								</td>
+							</tr>
 							{% endif %}
-							</td>
-						</tr>
 						{% endif %}
 					{% endfor %}
 					</table>
